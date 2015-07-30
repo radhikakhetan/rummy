@@ -18,19 +18,15 @@ public class Card {
 	}
 
 	boolean isPrevious(Card c) {
+		if ( this.rank % SET == 0 )
+			return this.rank == c.rank + SET - 1 ;
 		return this.rank + 1 == c.rank;
 	}
 
 	boolean isNext(Card c) {
+		if ( this.rank  % SET == 1)
+			return this.rank + SET - 1 == c.rank ;
 		return this.rank == c.rank + 1;
-	}
-
-	Card findNext() {
-		return new Card(this.rank + 1);
-	}
-
-	Card findPrevious() {
-		return new Card(this.rank - 1);
 	}
 
 }
