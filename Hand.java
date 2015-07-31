@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Hand {
@@ -18,6 +19,7 @@ public class Hand {
 	}
 
 	private List<ArrayList<Card>> findSequences() {
+		Collections.sort(cards, new RankComparator());
 		List<ArrayList<Card>> sequence = new ArrayList<ArrayList<Card>>();
 		int count = 0;
 		sequence.get(count).add(cards.get(0));
@@ -32,6 +34,7 @@ public class Hand {
 	}
 
 	private List<ArrayList<Card>> findTriplets() {
+		Collections.sort(cards, new SuitComparator());
 		List<ArrayList<Card>> triplet = new ArrayList<ArrayList<Card>>();
 		int count = 0;
 		triplet.get(count).add(cards.get(0));
@@ -53,13 +56,10 @@ public class Hand {
 		removeCanasta();
 		return requiredCards;
 	}
+	
 	void print(){
 		for(Card c : cards){
 			System.out.println(c.toString());
 		}
 	}
-	public static void main() {
-
-	}
-
 }
