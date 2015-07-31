@@ -57,9 +57,19 @@ public class Hand {
 		return requiredCards;
 	}
 	
+	public void isJoker() {
+		for (Card i : cards) {
+			if(i.isJoker()) {
+				jokerCount++ ;
+				cards.remove(i) ;
+			}
+		}
+	}
+
 	void print(){
 		for(Card c : cards){
 			System.out.println(c.toString());
 		}
 	}
+
 }
