@@ -1,9 +1,12 @@
 import java.util.Comparator;
 
-public class Card implements Comparator<Card> {
+public class Card {
 	int rank;
-	final int SET = 13;
-	
+	final String suit = "CDHS";
+	final String name = "A23456789TJQK";
+	final int HAND_COUNT = 13;
+	final int TOTAL_SUITS = 4;
+	final int JOKER_NUMBER = 53;
 
 	Card(int i) {
 		rank = i;
@@ -21,20 +24,36 @@ public class Card implements Comparator<Card> {
 	}
 
 	boolean isPrevious(Card c) {
-		if (this.rank % SET == 0)
-			return this.rank == c.rank + SET - 1;
+		if (this.rank % HAND_COUNT == 0)
+			return this.rank == c.rank + HAND_COUNT - 1;
 		return this.rank + 1 == c.rank;
 	}
 
 	boolean isNext(Card c) {
-		if (this.rank % SET == 1)
-			return this.rank + SET - 1 == c.rank;
+		if (this.rank % HAND_COUNT == 1)
+			return this.rank + HAND_COUNT - 1 == c.rank;
 		return this.rank == c.rank + 1;
 	}
+	
+	@Override
+	public String toString() {
+		if ( this.rank == JOKER_NUMBER )
+			return "JJ";
+		return  suit.charAt(this.rank % HAND_COUNT) + "" + name.charAt(this.rank % TOTAL_SUITS);
+	}
+}
 
+class RankComparator implements Comparator<Card> {
 	@Override
 	public int compare(Card one, Card two) {
 		return one.rank - two.rank;
 	}
+}
 
+class SuitComparator implements Comparator<Card> {
+	final int HAND_COUNT = 13;
+	@Override
+	public int compare(Card one, Card two) {
+		return (one.rank % HAND_COUNT) - (two.rank % HAND_COUNT);
+	}
 }
